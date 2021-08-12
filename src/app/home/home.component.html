@@ -1,0 +1,70 @@
+<div class='dashboard'>
+    <div class="section mb-5">
+        <h4 class="mb-2">My Offers</h4>
+        <div class="border-box">     
+            <div *ngIf="create_label">
+                <div class="row">               
+                    <div *ngFor="let createOffer of createOffers" class="col-md-3" ><button class="offer-btn btn" (click)="viewClick(createOffer._id)">{{createOffer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!create_label">
+                <h4 class="text-center my-3 text-danger">You don't have the joined offer yet.</h4>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-4">
+        <h4 class="mb-2">Accepted Offers</h4>
+        <div class="border-box mb-3">     
+            <div *ngIf="join_label">
+                <div class="row">               
+                    <div *ngFor="let joinOffer of joinOffers" class="col-md-3" ><button class="offer-btn btn" (click)="acceptClick(joinOffer._id)">{{joinOffer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!join_label">
+                <h4 class="text-center my-3 text-danger">You don't have the joined offer yet.</h4>
+            </div>
+        </div>
+        <div class="btn-right"><button class="btn btn-primary btn-medium"  (click)="myClick()">See all</button></div>
+    </div>
+    <div class="section mb-5">    
+        <h4 class="mb-2">In Progress</h4>
+        <div class="border-box">
+            <div *ngIf="accept_label">
+                <div class="row">               
+                    <div *ngFor="let acceptOffer of acceptOffers" class="col-md-3" ><button class="offer-btn btn" (click)="settledClick(acceptOffer._id)">{{acceptOffer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!accept_label">
+                <h4 class="text-center my-3 text-danger">You don't have the accepted offer yet.</h4>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-5">    
+        <h4 class="mb-2">Settled</h4>
+        <div class="border-box">
+            <div *ngIf="settled_label">
+                <div class="row">               
+                    <div *ngFor="let settledOffer of settledOffers" class="col-md-3" ><button class="offer-btn btn" (click)="contestClick(settledOffer._id)">{{settledOffer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!settled_label">
+                <h4 class="text-center my-3 text-danger">You don't have the settled offer yet.</h4>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-4">    
+        <h4 class="mb-2">Latest Market Offers</h4>
+        <div class="border-box mb-3">
+            <div *ngIf="market_label">
+                <div class="row">               
+                    <div *ngFor="let marketOffer of marketOffers" class="col-md-3" ><button class="offer-btn btn" (click)="joinClick(marketOffer._id)">{{marketOffer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!market_label">
+                <h4 class="text-center my-3 text-danger" >There is nothing to bet.</h4>
+            </div>
+        </div>
+        <div class="btn-right" ><button class="btn btn-primary btn-medium" (click)="marketClick()">See all on market</button></div>
+    </div>         
+</div>
+

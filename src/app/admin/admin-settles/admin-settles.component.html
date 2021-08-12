@@ -1,0 +1,15 @@
+<div class='dashboard'>
+    <div class="section mb-4">    
+        <h4 class="mb-2">Disputed Offers</h4>
+        <div class="border-box mb-3">
+            <div *ngIf="label">
+                <div class="row">               
+                    <div *ngFor="let offer of offers" class="col-md-3" ><button class="offer-btn btn" (click)="settleClick(offer._id)">{{offer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!label">
+                <h4 class="text-center my-3 text-danger" >There is nothing disputed.</h4>
+            </div>
+        </div>
+    </div>         
+</div>

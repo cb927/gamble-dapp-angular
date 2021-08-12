@@ -1,0 +1,93 @@
+<div class="setting">
+    <div class="text-center mb-4">
+        <h3>Create offer</h3>                
+    </div>
+    <div class='border-box'>          
+        <form [formGroup]="notificationForm" (ngSubmit) = "onNotificationSubmit()" class="mt-4 mb-4">
+            <div class="form-group mb-4">
+                <h6>Term</h6>
+                <select class="form-control" id="term" formControlName="term">
+                    <option value="1">English premier league</option>
+                    <option value="2">NBA</option>
+                    <option value="3">Spanish premier league</option>
+                </select>
+                <div *ngIf="term!.invalid && (term!.dirty || term!.touched)" class="p-2 text-danger">
+                    <div *ngIf="term!.errors!.required">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <h6>Expiry/time</h6>
+                <div class="input-group">
+                    <input type="text"  formControlName="expiry" class="form-control date" data-provide="datepicker" date-date-format="yyyy-mm-dd" placeholder="" readonly>
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <mat-icon>calendar_today</mat-icon>
+                        </span>
+                    </span>
+                </div>            
+                <div *ngIf="expiry!.invalid && (expiry!.dirty || expiry!.touched )" class="p-2 text-danger">
+                    <div >
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <h6>ETH wallet</h6>
+                <div class="input-group">
+                    <input type="text"  formControlName="eth" class="form-control" placeholder="ETH value" readonly>                    
+                    <div class="item btn form-control btn-primary no-border-box btn-medium-max" data-toggle="modal" data-target="#walletModal">ETH connect</div>                
+                </div>  
+                          
+                <div *ngIf="eth!.invalid && (eth!.dirty || eth!.touched)" class="p-2 text-danger">
+                    <div *ngIf="eth!.errors!.required">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <h6>Description</h6>
+                <textarea formControlName="desc" class="form-control" placeholder="Describe the offer!" ></textarea> 
+                <div *ngIf="desc!.invalid && (expiry!.dirty || desc!.touched)" class="p-2 text-danger">
+                    <div *ngIf="desc!.errors!.required">
+                        This field is required.
+                    </div>
+                </div>               
+            </div>
+            <div class="mb-5 btn-right">
+                <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Submit</button>
+            </div>
+        </form> 
+    </div>
+</div>
+<div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="walletModalLabel" >
+    <div class="modal-dialog" role="document">
+      <form [formGroup]="modalForm" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">ETH account</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+<!--
+          <div class="modal-body">
+            <h6 class="mb-3">Your Wallet Address</h6>
+            <input type="text" class="form-control mb-4 small" placeholder="{{address}}" readonly>
+          </div>
+          <div class="modal-footer btn-between">
+            <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" >Add Funds</button>
+            <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" (click)="logoutClick()">Log out</button>
+          </div>
+-->          
+          <div class="modal-body">
+            <h6 class="mb-3">Your Wallet Value</h6>
+            <input type="text" formControlName="walletValue" class="form-control mb-4 small" placeholder="">
+          </div>
+          <div class="modal-footer btn-right">
+            <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" (click)="addFund()">Add Funds</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class='offers'>
+    <h3 class="mb-3">Search/Filter offers</h3>    
+    <div class="row">
+        <div class="col-md-2 border-box">
+                <form [formGroup]="generalForm" (ngSubmit) = "onGeneralSubmit()" class="mt-4 mb-4">
+                    <div class="form-group mb-5">
+                        <label>ETH amount</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Min</div>
+                            </div>
+                            <input type="text" class="form-control" formControlName="minAmount" placeholder="0.00">
+                        </div>                    
+                        <div class="text-vertical"> ~ </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Max</div>
+                            </div>
+                            <input type="text" class="form-control" formControlName="maxAmount" placeholder="1000">
+                        </div>
+                    </div>
+                    <div class="form-group mb-5" style="display:none">
+                        <label>Status</label>
+                        <select class="form-control" formControlName="status">
+                            <option value="0">Open</option>
+                            <option value="1">Joined</option>
+                            <option value="2">Accepted</option>
+                            <option value="3">Settled</option>
+                            <option value="4">Disputed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-5 btn-right">
+                        <button type="submit" class="btn btn-primary no-border-box btn-medium">Filter</button>
+                    </div>                
+                </form>
+            
+        </div>
+        <div class="col-md-10">
+            <div class="border-box">
+                <div *ngIf="market_label">
+                    <div class="row">               
+                        <div *ngFor="let marketOffer of marketOffers" class="col-md-3" ><button class="offer-btn btn" (click)="joinClick(marketOffer._id)">{{marketOffer.term}}</button></div>
+                    </div>
+                </div>
+                <div *ngIf="!market_label">
+                    <h2 class="text-center my-3 text-danger">There is nothing to bet.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+         
+</div>
+

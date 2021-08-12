@@ -1,0 +1,52 @@
+<div class='offers'>
+    <h3 class="mb-3">Filter my offers</h3>
+    <div class="row">
+        <div class="col-md-2 border-box">
+            <form [formGroup]="generalForm" (ngSubmit) = "onGeneralSubmit()" class="mt-4 mb-4">
+                <div class="form-group mb-5">
+                    <label>ETH amount</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Min</div>
+                        </div>
+                        <input type="text" class="form-control" id="min" formControlName="minAmount" placeholder="0.00">
+                    </div>                    
+                    <div class="text-center"> ~ </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Max</div>
+                        </div>
+                        <input type="text" class="form-control" id="max" formControlName="maxAmount" placeholder="1000">
+                    </div>
+                </div>
+                <div class="form-group mb-5" style="display:none;">
+                    <label>Status</label>
+                    <select class="form-control" id="status" formControlName="status">
+                        <option value="open">Open</option>
+                        <option value="accept">Accept</option>
+                        <option value="settled">Settled</option>
+                        <option value="disputed">Disputed</option>
+                    </select>
+                </div>
+                
+                <div class="mb-5 btn-right">
+                    <button type="submit" class="btn btn-primary no-border-box btn-medium">Filter</button>
+                </div>                
+            </form>
+        </div>
+        <div class="col-md-10">
+            <div class="border-box">
+                <div *ngIf="join_label">
+                    <div class="row">               
+                        <div *ngFor="let joinOffer of joinOffers" class="col-md-3" ><button class="offer-btn btn" (click)="acceptClick(joinOffer._id)">{{joinOffer.term}}</button></div>
+                    </div>
+                </div>
+                <div *ngIf="!join_label">
+                    <h2 class="text-center my-3 text-danger">You don't have the joined offer.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+         
+</div>
+

@@ -1,0 +1,219 @@
+<div class="setting">
+  <div class="row">
+    <div id="sidebarMenu" class="col-md-3 main-height left border-right">
+        <div class="row">
+            <div class="item btn">
+                My Wallet
+            </div>
+            <div *ngIf="metaUser" class="item btn" (click)="accountClick()">{{addressSlice}}</div>
+            <div *ngIf="!metaUser" class="item btn">Log in with <a rel="nofollow" class="btn" (click)="metamask()"><img src="/assets/metamask-fox.svg" height="40"></a></div>
+            <div class="item btn" (click)="generalClick()">
+                General
+            </div>
+            <div class="item btn" (click)="notificationClick()">
+                Notification Settings
+            </div>
+            <div class="item btn" (click)="appearanceClick()">
+                Appearance
+            </div>  
+        </div>        
+    </div>
+    
+    <div class='col-md-9 main-height right'>
+        <div *ngIf="account" id="account" class="account">
+            <form [formGroup]="accountForm" (ngSubmit) = "onAccountSubmit()" class="mt-2 mb-2">
+                <div class="form-group1 mb-3">
+                    <h5>Settings</h5>                
+                </div>
+                <div class="form-group2 mb-4">
+                    <h6 class="mb-3">Your Wallet Address</h6>
+                    <input type="text"  formControlName="walletAddress" class="form-control mb-4 small" placeholder="{{address}}" readonly>  
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Add Funds</button>
+                        <button type="submit" class="btn logout">Log out</button>
+                    </div> 
+                </div>        
+            </form>
+        </div>
+        <div *ngIf="general" id="general">
+          <form [formGroup]="generalForm" (ngSubmit) = "onGeneralSubmit()" class="mt-4 mb-4">
+            <div class="form-group mb-5">
+                <h3>General Settings</h3>                
+            </div>
+            <div class="form-group mb-4">
+                <h6>Username</h6>
+                <input type="text"  formControlName="username" class="form-control" placeholder="Username" >
+                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="p-2 text-danger">
+                    <div *ngIf="username.errors.required">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <h6>Bio</h6>
+                <textarea formControlName="bio" class="form-control" placeholder="Tell the world your story!" ></textarea>                
+            </div>
+            <div class="form-group mb-5">
+                <h6>Email Address</h6>
+                <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-2 text-danger">
+                    <div *ngIf="email.errors.required">
+                        This field is required.
+                    </div>
+                    <div *ngIf="email.errors.email">
+                        Enter a valid email
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div *ngIf="fail" class="p-2 text-danger">
+                    Email address is duplicated. Please try it again.
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <button type="submit" class="btn btn-primary" [disabled]="!generalForm.valid">Save</button>
+            </div>
+            <div *ngIf="success" class="form-group">
+                <p>
+                    Please check {{beforeEmail}} and verify your new email address.<br>
+                    Still no email after a couple minutes? <button type="submit" class="hyperlink" [disabled]="!generalForm.valid" >Click here to resend.</button>
+                </p>
+            </div> 
+        </form>
+      </div>
+      <div *ngIf="notification" id="notification">
+        <form [formGroup]="notificationForm" (ngSubmit) = "onNotificationSubmit()" class="mt-4 mb-4">
+            <div class="form-group mb-4">
+                <h3>Notification Settings</h3>                
+                <p class="small">Select which notifications you would like to receive for {{addressSlice}}</p>
+            </div>
+            <div class="form-notification mb-4">
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="item" formControlName="item" class="form-control" [checked]="true">
+                    </div>
+                    <div class="right-side">
+                        <h6>Item Sold</h6>
+                        <p class="small">When someone purchased one of your items</p>
+                    </div>
+                </div> 
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="bid" formControlName="bid" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Bid Activity</h6>
+                        <p class="small">When someone bids on one of your items</p>
+                    </div>
+                </div> 
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="price" formControlName="price" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Price Change</h6>
+                        <p class="small">When an item you made an offer on changes in price</p>
+                    </div>
+                </div> 
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="auction" formControlName="auction" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Auction Expiration</h6>
+                        <p class="small">When a Dutch or English auction you created ends</p>
+                    </div>
+                </div>   
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="outbid" formControlName="outbid" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Outbid</h6>
+                        <p class="small">When an offer you placed is exceeded by another user</p>
+                    </div>
+                </div>   
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="referral" formControlName="referral" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Referral Successful</h6>
+                        <p class="small">When an item you referred is purchased</p>
+                    </div>
+                </div>   
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="asset" formControlName="asset" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Owned Asset Updates</h6>
+                        <p class="small">When a significant update occurs for one of the items you have purchased on opensea</p>
+                    </div>
+                </div>   
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="purchase" formControlName="purchase" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>Successful Purchase</h6>
+                        <p class="small">When you successfully buy an item</p>
+                    </div>
+                </div>    
+                <div class="notification-setting">
+                    <div class="left-side">
+                        <input type="checkbox" id="newsletter" formControlName="newsletter" class="form-control" value=1>
+                    </div>
+                    <div class="right-side">
+                        <h6>OpenSea Newsletter</h6>
+                        <p class="small">Occasional updates from the OpenSea team</p>
+                    </div>
+                </div>                  
+            </div>
+            <div class="form-group mb-4">
+                <h6>Minimum Bid Threshold</h6>                
+                <p class="small">Receive notifications only when you receive offers with a value greater than or equal to this amount of ETH.</p>
+            </div>
+            <div class="form-group mb-5 ">
+                <div class="form-threshold ">
+                    <div class="ETH">
+                        ETH
+                    </div>
+                    <div class="input">
+                        <input type="text" id="ethvalue" formControlName="ethvalue" class="form-control" placeholder="e.g. 0.005" >                   
+                    </div>
+                    <div class="value">
+                        <input type="text" id="exchange" formControlName="exchange" class="form-control" placeholder="$0" value ="{{ethvalue.value * 2775}}" readonly>
+                    </div>
+                </div>
+                <div *ngIf="ethvalue.invalid && (ethvalue.dirty || ethvalue.touched)" class="p-2 text-danger small ">
+                    <div *ngIf="ethvalue.errors.required">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
+                <button type="submit" class="btn btn-primary" [disabled]="!notificationForm.valid">Save</button>
+            </div>
+            <div class="form-group">
+                <div *ngIf="notificationUpdate" class="p-2 text-danger">
+                    Saved successfully.
+                </div>
+            </div>
+        </form>
+      </div>  
+      <div *ngIf="appearance" id="appearance">
+        <form [formGroup]="appearanceForm" (ngSubmit) = "onAppearanceSubmit()" class="mt-4 mb-4">
+            <div class="form-group mb-3">
+                <h3>Appearance Settings</h3>
+                <p class="small">Toggle between light and dark themes.</p>                
+            </div>
+            <div class="mb-5">
+                <button type="submit" class="btn btn-primary" [disabled]="!appearanceForm.valid">Toggle</button>
+            </div>
+        </form>
+      </div>       
+    </div>
+  </div>
+</div>

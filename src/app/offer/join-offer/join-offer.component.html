@@ -1,0 +1,67 @@
+<div class="join">
+    <div class="text-center mb-4">
+        <h3>Join offer</h3>                
+    </div>
+    <form [formGroup]="notificationForm" (ngSubmit) = "onNotificationSubmit()" class="mt-4 mb-4">
+        <div class="offer-row mb-4">          
+            <div class="col-md-5 border-box text-center">
+                <div class="nft">
+                    <h4 class="mb-4">{{creator_name}}</h4>
+                    <p>ETH value: {{creator_eth}}</p>
+                    <p class="mb-0">${{creator_usd}}</p>
+                </div>   
+            </div>
+            <div class="col-md-2 vs">
+                VS
+            </div>
+            <div class="col-md-5 border-box text-center">
+                <div class="form-group mb-4">
+                    <h4 class="mb-4">Put your asset</h4>
+                    <div class="input-group">
+                        <input type="text"  formControlName="opponent_eth" class="form-control" placeholder="ETH value" readonly>                    
+                        <div class="btn form-control btn-primary no-border-bo btn-medium-max" data-toggle="modal" data-target="#walletModal">ETH connect</div>                
+                    </div>  
+                              
+                    <div *ngIf="opponent_eth!.invalid && (opponent_eth!.dirty || opponent_eth!.touched)" class="p-2 text-danger">
+                        <div *ngIf="opponent_eth!.errors!.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        <div class="border-box mb-4 text-center">
+                <h4 class="mb-4">{{term}}</h4>
+                <p>Machester : Liverpool</p>
+                <p class="mb-0">{{date}}</p>
+        </div>  
+        <div class="border-box mb-4 text-center">
+            <p class="mb-0">{{desc}}</p>
+        </div>            
+        <div class="mb-4 btn-right">
+            <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Submit</button>
+        </div>
+    </form> 
+</div>
+<div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="walletModalLabel" >
+    <div class="modal-dialog" role="document">
+      <form [formGroup]="modalForm" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">ETH account</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>    
+          <div class="modal-body">
+            <h6 class="mb-3">Your Wallet Value</h6>
+            <input type="text" formControlName="walletValue" class="form-control mb-4 small" placeholder="">
+          </div>
+          <div class="modal-footer btn-right">
+            <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" (click)="addFund()">Add Funds</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+</div>
+
+ 

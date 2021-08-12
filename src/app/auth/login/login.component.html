@@ -1,0 +1,58 @@
+<div class="container form-center min-vh">
+  <div class="form-signin col-lg-6">
+    <div class="h4 text-center">
+      Log into Your Account
+    </div>
+    <form [formGroup]="userForm" (ngSubmit) = "onSubmit()" class="mt-4 mb-4">
+      <div class="form-group">
+        <div *ngIf="fail" class="p-2 text-danger">
+            Log in information is not right. Please try it again.
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required>
+        <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="p-2 text-danger">
+          <div *ngIf="email!.errors!.required">
+            Email is required.
+          </div>
+          <div *ngIf="email!.errors!.email">
+            Enter a valid email
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password"  formControlName="password" class="form-control" placeholder="Password" >
+        <div *ngIf="password!.invalid && (password!.dirty || password!.touched)" class="p-2 text-danger">
+          <div *ngIf="userForm.controls['password']!.errors!.required">
+            Password is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group col-md-6">
+              <div class="form-check p-l-0">
+                <input type="checkbox" class="form-check-input"  formControlName="remember" id="basic_checkbox" value=1>
+                <label class="form-check-label" for="basic_checkbox_1">Remember me</label>
+              </div>
+          </div>
+          <div class="form-group col-md-6 text-right"><a href="auth/forgot">Forgot Password?</a>
+          </div>
+      </div>
+      <div class="text-center m-b-15 m-t-15">
+          <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Sign in</button>
+      </div>
+    </form>
+    <div class="text-center">
+      <h5 class="m-b-30">Or with Login</h5>
+      <div class="form-group">
+          <a rel="nofollow" class="btn" (click)="metamask()"><img src="/assets/metamask-fox.svg" height="40"></a>   
+      </div>
+      <p class="m-t-30">Dont have an account? <a href="auth/register">Register Now</a>
+      </p>
+    </div>
+  </div>
+</div>
+  

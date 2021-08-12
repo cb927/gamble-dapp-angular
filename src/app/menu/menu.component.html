@@ -1,0 +1,98 @@
+<div class="menu-back"></div>
+<div class="menu-item">
+    <div class="item">
+      <img src="/assets/icons/fighter-plane.svg" height="15"> My Wallet
+	  <div *ngIf="metaUser" class="fund">
+		  <h6>{{addressSlice}}</h6>
+		  <button *ngIf="metaUser" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Fund</button>
+	  </div>
+      <div *ngIf="!metaUser" class="btn" (click)="metamask()">Log in with <img src="/assets/metamask-fox.svg" height="40"></div>
+      <div *ngIf="duplicationWallet" class="text-danger">Wallet Address Duplication</div>
+    </div>
+    <div *ngIf="roles" class="item btn" (click)="adminClick()">
+      <img src="/assets/icons/horseback-riding.svg" height="15"> Admin
+    </div>
+    <div class="item btn" (click)="dashboardClick()">
+      <img src="/assets/icons/railcar.svg" height="15"> Dashboard
+    </div>
+    <div class="item btn" (click)="accountClick()">
+      <img src="/assets/icons/motorcycle.svg" height="15"> My Account
+    </div>
+    <div class="item btn" (click)="offersClick()">
+      <img src="/assets/icons/car.svg" height="15"> My Offers
+    </div>  
+    <div class="item btn" (click)="marketClick()">
+      <img src="/assets/icons/space-shuttle.svg" height="15"> Market
+    </div>  
+    <div class="item btn" (click)="logoutClick()">
+      <img src="/assets/icons/balloon.svg" height="15"> Log Out
+    </div>    
+</div> 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" role="document">
+    <div  class="modal-content">
+      <div *ngIf ="first_screen">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel p1-2">ETH account</h4>
+          <div data-dismiss="modal" class="cursor"><i aria-label="Close" value="close" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">close</i></div>
+        </div>
+        <div class="modal-body">
+          <h6 class="mb-3">Your Wallet Address</h6>
+          <input type="text"  class="form-control mb-4 small" placeholder="{{address}}" readonly>
+        </div>
+        <div class="modal-footer btn-between">
+          <button type="button" class="btn btn-primary btn-medium" (click)="addFund()">Add Funds</button>
+          <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" (click)="logoutClick()">Log out</button>
+        </div>
+      </div>
+      <div *ngIf ="second_screen" >
+        <div class="modal-header btn-between">
+          <div class="cursor" (click)="goBack('1')" ><i aria-label="Back" value="arrow_back" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">arrow_back</i></div>
+          <h5 class="modal-title" id="myModalLabel">ADD ETH to your wallet</h5>
+          <div data-dismiss="modal" class="cursor"><i aria-label="Close" value="close" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">close</i></div>
+        </div>
+        <div class="modal-body second-screen">
+          <span class="small">Select one of the options to deposit ETH to your wallet</span>
+          <div class="action-button cursor" (click)="goBack('3')" >
+            <i class="Iconreact__Icon-sc-1gugx8q-0 irnoQt material-icons" value="insert_chart" size="24" style="margin-right:6px">insert_chart</i>Deposit from an exchange
+          </div>
+          <div class="action-button cursor" (click)="goBack('4')">
+            <i class="Iconreact__Icon-sc-1gugx8q-0 irnoQt material-icons " value="credit_card" size="24" style="margin-right:6px">credit_card</i>Buy with card
+          </div>
+        </div>
+      </div>
+      <div *ngIf ="deposit_screen">
+        <div class="modal-header btn-between">
+          <div class="cursor" (click)="goBack('2')" ><i aria-label="Back" value="arrow_back" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">arrow_back</i></div>
+          <h5 class="modal-title" id="myModalLabel">Deposit ETH</h5>
+          <div data-dismiss="modal" class="cursor"><i aria-label="Close" value="close" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">close</i></div>
+        </div>
+        <div class="modal-body">
+          <div class="my-3 small">Send ETH from your exchange or wallet to the following address.</div>
+          <div class="">
+            <h6 class="my-2">Your Wallet Address</h6>
+			      <input type="text"  class="form-control mb-4 small" placeholder="{{address}}" readonly>
+          </div>
+          <div class="btn-right mb-2">
+            <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf ="card_screen">
+        <div class="modal-header btn-between">
+          <div class="cursor" (click)="goBack('2')" ><i aria-label="Back" value="arrow_back" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">arrow_back</i></div>
+          <h5 class="modal-title" id="myModalLabel">Buy with card</h5>
+          <div data-dismiss="modal" class="cursor"><i aria-label="Close" value="close" size="24" class="Iconreact__Icon-sc-1gugx8q-0 Modalreact__StyledIcon-xyql9f-1 bPKBKm jjdtMt material-icons" color="gray">close</i></div>
+        </div>
+        <div class="modal-body">
+          <div class="moonpay">
+            <iframe allow="accelerometer; camera; gyroscope; payment" class="IFrame--iframe" src="https://buy.moonpay.com?apiKey=pk_live_IdYWVj39NNgSrt2t9jBPSgwl9outsydU&amp;colorCode=%232081E2&amp;currencyCode=ETH" width="100%" height="100%" frameborder="0"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  

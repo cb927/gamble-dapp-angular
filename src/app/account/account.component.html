@@ -1,0 +1,134 @@
+<div class="setting">
+    <div class="text-center mb-3">
+        <h3>My account</h3>                
+    </div>
+    <div class='border-box'>          
+        <form [formGroup]="notificationForm" (ngSubmit) = "onNotificationSubmit()" class="mt-4 mb-4">
+            <div class="form-group mb-4">
+                <h6>Email Address</h6>
+                <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required>
+                <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="p-2 text-danger">
+                    <div *ngIf="email!.errors!.required">
+                        This field is required.
+                    </div>
+                    <div *ngIf="email!.errors!.email">
+                        Enter a valid email
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <h6>Bio</h6>
+                <textarea formControlName="bio" class="form-control" placeholder="Tell the world your story!" ></textarea>                
+            </div>
+            <div class="form-group mb-5">
+                <h6>Username</h6>
+                <input type="text"  formControlName="username" class="form-control" placeholder="Username" >
+                <div *ngIf="username!.invalid && (username!.dirty || username!.touched)" class="p-2 text-danger">
+                    <div *ngIf="username!.errors!.required">
+                        This field is required.
+                    </div>
+                </div>
+            </div>
+            <div class="border-box mb-4">
+                <h4 class="text-center mb-4">Notification Setting</h4>
+                <div class="form-notification ">
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="item" formControlName="item" class="form-control" [checked]="true">
+                        </div>
+                        <div class="right-side">
+                            <h6>Item Sold</h6>
+                            <p class="small">When someone purchased one of your items</p>
+                        </div>
+                    </div> 
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="bid" formControlName="bid" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Bid Activity</h6>
+                            <p class="small">When someone bids on one of your items</p>
+                        </div>
+                    </div> 
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="price" formControlName="price" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Price Change</h6>
+                            <p class="small">When an item you made an offer on changes in price</p>
+                        </div>
+                    </div> 
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="auction" formControlName="auction" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Auction Expiration</h6>
+                            <p class="small">When a Dutch or English auction you created ends</p>
+                        </div>
+                    </div>   
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="outbid" formControlName="outbid" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Outbid</h6>
+                            <p class="small">When an offer you placed is exceeded by another user</p>
+                        </div>
+                    </div>   
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="referral" formControlName="referral" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Referral Successful</h6>
+                            <p class="small">When an item you referred is purchased</p>
+                        </div>
+                    </div>   
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="asset" formControlName="asset" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Owned Asset Updates</h6>
+                            <p class="small">When a significant update occurs for one of the items you have purchased on opensea</p>
+                        </div>
+                    </div>   
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="purchase" formControlName="purchase" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>Successful Purchase</h6>
+                            <p class="small">When you successfully buy an item</p>
+                        </div>
+                    </div>    
+                    <div class="notification-setting">
+                        <div class="left-side">
+                            <input type="checkbox" id="newsletter" formControlName="newsletter" class="form-control" value=1>
+                        </div>
+                        <div class="right-side">
+                            <h6>OpenSea Newsletter</h6>
+                            <p class="small">Occasional updates from the OpenSea team</p>
+                        </div>
+                    </div>  
+                    <div class="p-4">
+                        <h6>Minimum Bid Threshold</h6>                
+                        <p class="small">Receive notifications only when you receive offers with a value greater than or equal to this amount of ETH.</p>
+                        <div class="input-group form-threshold">
+                            <div class="form-control text-center">ETH</div>
+                            <input type="text" id="ethvalue" formControlName="ethvalue" class="form-control btn-small" placeholder="e.g. 0.005">   
+                            <input type="text" id="exchange" formControlName="exchange" class="form-control btn-small" placeholder="$0" value ="{{ethvalue!.value * 2775}}" readonly>        
+                        </div> 
+                        
+                    </div>                                   
+                </div> 
+            </div>                     
+            <div class="mb-5 btn-right">
+                <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Save</button>
+            </div>            
+        </form> 
+    </div>
+  </div>
+  

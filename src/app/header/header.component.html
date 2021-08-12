@@ -1,0 +1,26 @@
+<header>
+  <mat-toolbar color="primary">
+<!--<a routerLink="/" class="logo"></a>-->    
+    <a routerLink="/"><img src="/assets/icons/boat.svg" height="40"></a>
+    <span class="example-spacer"></span>
+    <button *ngIf="_id" mat-button routerLink="/offer/set-offer" class="btn btn-primary">Create offer</button>      
+    <div>      
+      <a class="links side" routerLink="/auth/login" *ngIf="!_id">Login</a>
+      <a class="links side" *ngIf="_id" routerLink="/account">
+        <mat-icon>account_circle</mat-icon>
+      </a>
+<!--
+      <a class="links side" *ngIf="user" [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </a>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="user?.isAdmin" routerLink="/admin">admin</button>   
+        <button mat-menu-item (click)="account()">Account Setting</button>
+        <button mat-menu-item (click)="logout()">logout</button>
+
+      </mat-menu>
+-->     
+    </div>
+  </mat-toolbar>
+</header>
